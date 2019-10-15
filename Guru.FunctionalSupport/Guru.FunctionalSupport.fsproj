@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.0</TargetFramework>
+        <AssemblyName>Com.Guru.FunctionalSupport</AssemblyName>
+        <RootNamespace>Com.Guru.FunctionalSupport</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Include="Results.fs" />
+    </ItemGroup>
+
+</Project>
