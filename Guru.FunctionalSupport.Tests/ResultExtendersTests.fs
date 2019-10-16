@@ -2,7 +2,6 @@ namespace Com.Guru.FunctionalSupport.Tests
 
 open NUnit.Framework
 open Com.Guru.FunctionalSupport
-open Com.Guru.FunctionalSupport.Results
 
 [<TestFixture>]
 type ResultExtendersTests() =
@@ -12,36 +11,36 @@ type ResultExtendersTests() =
         let ok = Ok "this is ok"
         let notOk = Error "this is the error"
         
-        AssertF.isTrue ok.isOk
-        AssertF.isFalse notOk.isOk
+        ResultF.isOk ok |> AssertF.isTrue 
+        ResultF.isOk notOk |> AssertF.isFalse
     
     [<Test>]
     member this.IsErrorTest() =
         let ok = Ok "this is ok"
         let notOk = Error "this is the error"
         
-        AssertF.isFalse ok.isError
-        AssertF.isTrue notOk.isError
+        ResultF.isError ok |> AssertF.isFalse 
+        ResultF.isError notOk |> AssertF.isTrue
     
     [<Test>]
     member this.GetTest() =
         let ok = Ok "this is ok"
         let notOk = Error "this is the error"
         
-        ok |> Result.get |> AssertF.areEqual "this is ok"
+        ok |> ResultF.get |> AssertF.areEqual "this is ok"
         
         try
-            notOk |> Result.get |> ignore
+            notOk |> ResultF.get |> ignore
         with
-        | e -> e |> AssertF.areEqual Results.notExistentException
+        | e -> e |> AssertF.areEqual ResultF.notExistentException
         
     [<Test>]
     member this.UnitTest() =
         let temp = "this is contained"
-        let result = Result.unit temp
-        
-        AssertF.isTrue result.isOk
-        result |> Result.get |> AssertF.areEqual temp
+        let result = ResultF.unit temp
+
+        result |> ResultF.isOk |> AssertF.isTrue
+        result |> ResultF.get |> AssertF.areEqual temp
     
     [<Test>]
     member this.MapTest() =
@@ -49,8 +48,8 @@ type ResultExtendersTests() =
         let f x = sprintf "%s with second value" x
         let result = first |> Result.map f
         
-        AssertF.isTrue result.isOk
-        result |> Result.get |> AssertF.areEqual "First value with second value"
+        result |> ResultF.isOk |> AssertF.isTrue
+        result |> ResultF.get |> AssertF.areEqual "First value with second value"
     
     [<Test>]
     member this.MapErrorTest() =
@@ -58,7 +57,7 @@ type ResultExtendersTests() =
         let f x = sprintf "%s with second value" x
         let result = first |> Result.map f
         
-        AssertF.isTrue result.isError
+        result |> ResultF.isError |> AssertF.isTrue
         
         match result with
         | Error e -> e |> AssertF.areEqual "Error text"
@@ -69,9 +68,8 @@ type ResultExtendersTests() =
         let first = Ok "First value"
         let f x = sprintf "%s with second value" x |> Ok
         let result = first |> Result.bind f
-        
-        AssertF.isTrue result.isOk
-        result |> Result.get |> AssertF.areEqual "First value with second value"
+        result |> ResultF.isOk |> AssertF.isTrue
+        result |> ResultF.get |> AssertF.areEqual "First value with second value"
     
     [<Test>]
     member this.BindFirstErrorTest() =
@@ -79,7 +77,7 @@ type ResultExtendersTests() =
         let f x = sprintf "%s with second value" x |> Ok
         let result = first |> Result.bind f
         
-        AssertF.isTrue result.isError
+        result |> ResultF.isError |> AssertF.isTrue
         
         match result with
         | Error e -> e |> AssertF.areEqual "Error text"
@@ -90,7 +88,10 @@ type ResultExtendersTests() =
         let first = Ok "First value"
         let f _ = Error "Error Text"
         let result = first |> Result.bind f
+
+        result |> ResultF.isError |> AssertF.isTrue
         
-        AssertF.isTrue result.isError
-        result |> Result.get |> AssertF.areEqual "First value with second value"
+        match result with
+        | Error e -> e |> AssertF.areEqual "Error Text"
+        | _ -> AssertF.fail "The result is not an error."
         
