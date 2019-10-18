@@ -17,7 +17,7 @@ type ResultComputationExpressionTests() =
                 return! secondComputation firstPart
             }
 
-        result |> ResultF.isOk |> AssertF.isTrue
-        result |> ResultF.get |> AssertF.areEqual "Computation went well and the secondo part as well"
+        result |> Result.isOk |> AssertF.isTrue
+        result |> Result.get |> AssertF.areEqual "Computation went well and the secondo part as well"
         
     

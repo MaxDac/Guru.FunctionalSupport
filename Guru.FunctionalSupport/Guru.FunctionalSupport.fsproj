@@ -7,10 +7,22 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Include="ResultF.fs" />
+        <Compile Include="Json\JsonNetSupport.fs" />
+        <Compile Include="Json\Json.fs" />
+        <Compile Include="Option.fs" />
+        <Compile Include="Result.fs" />
         <Compile Include="Async.fs" />
         <Compile Include="AsyncResult.fs" />
+        <Compile Include="Wrappers\StringF.fs" />
+        <Compile Include="Wrappers\StreamF.fs" />
+        <Compile Include="Wrappers\PathF.fs" />
+        <Compile Include="Wrappers\TupleF.fs" />
+        <Compile Include="Wrappers\ConfigF.fs" />
         <Compile Include="ComputationExpressions.fs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
     </ItemGroup>
 
 </Project>

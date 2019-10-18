@@ -1,6 +1,6 @@
 namespace Com.Guru.FunctionalSupport
 
-module ResultF =
+module Result =
     let notExistentException = exn "Getting error value"
 
     let isOk res =
@@ -11,16 +11,8 @@ module ResultF =
     let isError res = isOk res |> not
 
     let someUnit x = Ok x
-
-    let bind f x =
-        match x with
-        | Ok v -> f v
-        | e -> e
         
     let unit = Ok
-
-    let map f x =
-        bind (f >> unit) x
 
     let get x =
         match x with
@@ -28,8 +20,8 @@ module ResultF =
         | Error _ -> raise notExistentException
 
     type ResultBuilder() =
-        member __.Bind(c, f) = bind f c
+        member __.Bind(c, f) = Result.bind f c
         member __.Return(v) = unit v
         member __.ReturnFrom(v) = v
-        member __.Combine(e1, e2) = bind (fun () -> e2) e1
+        member __.Combine(e1, e2) = Result.bind (fun () -> e2) e1
 

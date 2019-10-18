@@ -1,0 +1,53 @@
+namespace Com.Guru.FunctionalSupport
+
+open System
+open System
+open System.Text.RegularExpressions
+
+module StringF =
+    let nullOrEmpty s = String.IsNullOrEmpty(s)
+    
+    let notNullNorEmpty s = nullOrEmpty s |> not
+    
+    let join (separator: string) (elements: string list) =
+        String.Join(separator, elements |> List.toArray)
+        
+    let joinNoSeparator elements = join "" elements
+    
+    let split (separator: string) (s: string) = s.Split(separator) |> Array.toList
+    
+    let replace (oldValue: string) (newValue: string) (element: string) = element.Replace(oldValue, newValue)
+    
+    let regexReplace regex (sub: string) element =
+        let r = new Regex(regex)
+        r.Replace(element, sub)
+    
+    let substring i f (s: string) =        
+        match s with
+        | s when s.Length > i -> s.Substring(i, (s.Length - i) |> min f) |> Some
+        | _ -> None
+    
+    let substringZero f = substring 0 f
+    
+    let substringLast size f =        
+        match String.length f with
+        | l when l < size -> None
+        | l -> substring (l - size) size f
+        
+    let datePad pad x = x.ToString().PadLeft(pad, '0')
+    
+    let dayMonthPad x = datePad 2 x
+    
+    let yearPad x = datePad 4 x
+    
+    let private trimCharacters = [| ' '; '\n'; '\r' |]
+    
+    let trim (x: string) = x.Trim(trimCharacters)
+    
+    let trimEnd (x: string) = x.TrimEnd(trimCharacters)
+    
+    let trimStart (x: string) = x.TrimStart(trimCharacters)
+        
+    let asOption (s: string) =
+        if nullOrEmpty s then None else Some s
+    

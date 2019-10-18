@@ -7,7 +7,7 @@ module AsyncResult =
     
     let convert<'a, 'e> (t: Async<Result<'a, exn>>): AsyncResult<'a> = t
     
-    let unit a = ResultF.unit a |> Async.unit |> convert
+    let unit a = Result.unit a |> Async.unit |> convert
     
     let bind (f: 'a -> AsyncResult<'b>) (a: AsyncResult<'a>) =
         async {
@@ -22,8 +22,11 @@ module AsyncResult =
         
     let map f = bind (f >> unit)
     
+    let fromResult r = r |> Async.unit |> convert
+    
     type AsyncResultBuilder() =
         member __.Bind(c, f) = bind f c
         member __.Return(v) = unit v
         member __.ReturnFrom(v) = v
+        member __.Zero() = unit ()
         member __.Combine(e1, e2) = bind (fun () -> e2) e1

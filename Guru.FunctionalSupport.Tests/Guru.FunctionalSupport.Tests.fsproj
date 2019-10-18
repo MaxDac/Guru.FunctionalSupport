@@ -13,9 +13,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssertF.fs" />
+    <Compile Include="StringExtendersTests.fs" />
+    <Compile Include="PathsExtensionsTests.fs" />
+    <Compile Include="StreamTests.fs" />
+    <Compile Include="OptionExtendersTests.fs" />
     <Compile Include="ResultExtendersTests.fs" />
     <Compile Include="ResultComputationExpressionTests.fs" />
     <Compile Include="AsyncExtensionsTests.fs" />
+    <Compile Include="SerializationTests.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>

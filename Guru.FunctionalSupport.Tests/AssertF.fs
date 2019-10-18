@@ -12,4 +12,9 @@ module AssertF =
     
     let fail message = Assert.Fail(message)
     
+    let assertResultWith f r =
+        match r with
+        | Error e -> e.ToString() |> fail
+        | Ok v -> f v
+    
     
