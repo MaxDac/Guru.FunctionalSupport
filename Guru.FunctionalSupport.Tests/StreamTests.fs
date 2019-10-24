@@ -53,7 +53,7 @@ type StreamsTests() =
                 Assert.AreEqual(firstString + secondString, resultString)
             | Error e ->
                 Assert.Fail(e.ToString())
-        } |> Async.asPlainTask
+        } |> Async.RunSynchronously
 
 
 

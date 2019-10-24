@@ -65,4 +65,37 @@ type OptionExtendersTests() =
         | _ ->
             AssertF.fail "It should be ok"
         
-
+    [<Test>]
+    member this.traverseStringOptionFirstTest() =
+        let list = [ Some "string"; Some "other string" ]
+        let result = list |> Option.traverseList
+        
+        result |> Option.isSome |> AssertF.isTrue
+        
+        match result |> Option.get with
+        | [ el1; el2 ] ->
+            AssertF.areEqual "string" el1
+            AssertF.areEqual "other string" el2
+        | _ ->
+            AssertF.fail "The list should have had two elements"
+        
+    [<Test>]
+    member this.traverseStringOptionSecondTest() =
+        let list = [ Some "string"; None ]
+        let result = list |> Option.traverseList
+        
+        result |> Option.isNone |> AssertF.isTrue
+        
+    [<Test>]
+    member this.traverseStringOptionThirdTest() =
+        let list = [ None; Some "string" ]
+        let result = list |> Option.traverseList
+        
+        result |> Option.isNone |> AssertF.isTrue
+        
+    [<Test>]
+    member this.traverseStringOptionFourthTest() =
+        let list = [ None; None ]
+        let result = list |> Option.traverseList
+        
+        result |> Option.isNone |> AssertF.isTrue

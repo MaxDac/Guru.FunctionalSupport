@@ -1,12 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp3.0</TargetFramework>
+        <TargetFramework>netstandard2.1</TargetFramework>
         <AssemblyName>Com.Guru.FunctionalSupport</AssemblyName>
         <RootNamespace>Com.Guru.FunctionalSupport</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
+        <Compile Include="Base.fs" />
         <Compile Include="Json\JsonNetSupport.fs" />
         <Compile Include="Json\Json.fs" />
         <Compile Include="Option.fs" />
@@ -19,6 +20,7 @@
         <Compile Include="Wrappers\TupleF.fs" />
         <Compile Include="Wrappers\ConfigF.fs" />
         <Compile Include="ComputationExpressions.fs" />
+        <Compile Include="Converters.fs" />
     </ItemGroup>
 
     <ItemGroup>

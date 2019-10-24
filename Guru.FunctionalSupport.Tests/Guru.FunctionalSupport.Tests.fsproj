@@ -21,6 +21,7 @@
     <Compile Include="ResultComputationExpressionTests.fs" />
     <Compile Include="AsyncExtensionsTests.fs" />
     <Compile Include="SerializationTests.fs" />
+    <Compile Include="ConvertersTests.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>

@@ -2,6 +2,7 @@ namespace Com.Guru.FunctionalSupport
 
 open System
 open System
+open System
 open System.Text.RegularExpressions
 
 module StringF =
@@ -13,6 +14,10 @@ module StringF =
         String.Join(separator, elements |> List.toArray)
         
     let joinNoSeparator elements = join "" elements
+    
+    let format template ([<ParamArray>] elements: string list) =
+        let casted = [| for el in elements |> Seq.cast<obj> -> el |]
+        String.Format(format = template, args = casted)
     
     let split (separator: string) (s: string) = s.Split(separator) |> Array.toList
     

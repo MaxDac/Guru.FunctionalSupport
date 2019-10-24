@@ -34,6 +34,18 @@ type StringExtendersTests() =
         AssertF.areEqual "" result
         
     [<Test>]
+    member this.formatTest() =
+        let template = "This {0} is {1}"
+        let elements = [ "string"; "formatted" ]
+        
+        try
+            let result = StringF.format template elements
+            AssertF.areEqual "This string is formatted" result
+        with
+        | e ->
+            AssertF.fail (e.ToString())
+        
+    [<Test>]
     member this.splitTest() =
         let separator = ";"
         let temp = "this;is;the;string"

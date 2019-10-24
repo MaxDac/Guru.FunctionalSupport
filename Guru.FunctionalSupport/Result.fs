@@ -1,5 +1,7 @@
 namespace Com.Guru.FunctionalSupport
 
+type 'a result = Result<'a, exn>
+
 module Result =
     let notExistentException = exn "Getting error value"
 
@@ -18,6 +20,11 @@ module Result =
         match x with
         | Ok v -> v
         | Error _ -> raise notExistentException
+        
+    let toOption r =
+        match r with
+        | Ok v -> Some v
+        | _ -> None
 
     type ResultBuilder() =
         member __.Bind(c, f) = Result.bind f c

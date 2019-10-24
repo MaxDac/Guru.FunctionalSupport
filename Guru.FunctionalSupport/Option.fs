@@ -12,6 +12,14 @@ module Option =
         match o with
         | None -> Error e
         | Some v -> Ok v
+        
+    let joinOptional x xss =
+        xss
+        |> Option.bind (fun yss ->
+            x |> Option.map (fun y -> y :: yss))
+    
+    let traverseList xs =
+        List.foldBack joinOptional xs (Some []) 
             
     type OptionBuilder() =
         member __.Zero() = None
