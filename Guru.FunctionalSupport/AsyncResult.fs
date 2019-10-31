@@ -1,5 +1,4 @@
 namespace Com.Guru.FunctionalSupport
-open System.Threading.Tasks
 
 type AsyncResult<'a> = Async<Result<'a, exn>>
 
@@ -55,4 +54,12 @@ module AsyncResult =
         member __.Zero() = unit ()
         member __.Combine(e1, e2) = bind (fun () -> e2) e1
         member __.TryWith(expr, handler) =
-            catch 
+            async {
+                try
+                    let! result = expr
+                    match result with
+                    | Ok _ as okResult -> return okResult
+                    | Error _ as e -> return e
+                with
+                | e -> return handler e
+            }

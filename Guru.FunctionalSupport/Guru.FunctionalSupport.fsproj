@@ -7,7 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Include="Base.fs" />
         <Compile Include="Json\JsonNetSupport.fs" />
         <Compile Include="Json\Json.fs" />
         <Compile Include="Option.fs" />
