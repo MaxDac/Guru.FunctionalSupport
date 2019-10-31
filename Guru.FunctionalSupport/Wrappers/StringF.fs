@@ -34,6 +34,11 @@ module StringF =
     
     let substringZero f = substring 0 f
     
+    let substringDrop dropped s =
+        match String.length s with
+        | l when dropped >= l -> None
+        | l -> s |> substring dropped (l - dropped)
+    
     let substringLast size f =        
         match String.length f with
         | l when l < size -> None
@@ -55,4 +60,17 @@ module StringF =
         
     let asOption (s: string) =
         if nullOrEmpty s then None else Some s
+        
+    let toUpper (s: string) = s.ToUpper()
+    
+    let toLower (s: string) = s.ToLower()
+        
+    let capital s =
+        substringZero 1 s
+        |> Option.map toUpper
+        |> Option.bind (fun f ->
+            substringDrop 1 s
+            |> Option.map (fun x -> [f; x]))
+        |> Option.map joinNoSeparator
+        
     

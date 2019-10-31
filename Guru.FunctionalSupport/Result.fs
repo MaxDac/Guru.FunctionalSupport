@@ -25,6 +25,21 @@ module Result =
         match r with
         | Ok v -> Some v
         | _ -> None
+        
+    let flatten r =
+        let rec flattenInternal items acc =
+            match items with
+            | [] -> acc
+            | x :: xs ->
+                match x with
+                | Ok v ->
+                    acc
+                    |> Result.map (fun ls -> List.append ls [ v ])
+                    |> flattenInternal xs 
+                | Error e ->
+                    Error e
+        
+        Ok [] |> flattenInternal r 
 
     type ResultBuilder() =
         member __.Bind(c, f) = Result.bind f c

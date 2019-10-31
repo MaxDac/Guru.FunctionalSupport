@@ -270,4 +270,16 @@ type StringExtendersTests() =
         let result = StringF.trim temp
         
         AssertF.areEqual "" result
-        
+    
+    [<Test>]
+    member this.capitalLetter() =
+        let text = "this is some text"
+        let result = StringF.capital text
+        result |> Option.isSome |> AssertF.isTrue
+        result |> Option.get |> AssertF.areEqual "This is some text" 
+    
+    [<Test>]
+    member this.capitalLetterOfEmptyString() =
+        let text = ""
+        let result = StringF.capital text
+        result |> Option.isNone |> AssertF.isTrue

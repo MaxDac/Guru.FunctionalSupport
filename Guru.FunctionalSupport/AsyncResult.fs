@@ -53,6 +53,13 @@ module AsyncResult =
         member __.ReturnFrom(v) = v
         member __.Zero() = unit ()
         member __.Combine(e1, e2) = bind (fun () -> e2) e1
+        member __.Delay(f) =
+            async {
+                let! result = f()
+                match result with
+                | Ok _ as okResult -> return okResult
+                | Error _ as errorResult -> return errorResult
+            }
         member __.TryWith(expr, handler) =
             async {
                 try

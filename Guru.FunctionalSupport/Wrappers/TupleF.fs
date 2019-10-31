@@ -1,4 +1,4 @@
-namespace Com.Guru.FunctionalSupport.Wrappers
+namespace Com.Guru.FunctionalSupport
 
 module TupleF =
     let map f t =

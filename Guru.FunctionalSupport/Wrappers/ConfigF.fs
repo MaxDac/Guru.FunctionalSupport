@@ -1,4 +1,4 @@
-namespace Com.Guru.FunctionalSupport.Wrappers
+namespace Com.Guru.FunctionalSupport
 open Com.Guru.FunctionalSupport
 open System
 
